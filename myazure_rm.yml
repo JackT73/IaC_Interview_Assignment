@@ -5,3 +5,6 @@ auth_source: auto
 keyed_groups:
  - key: tags.applicationRole
 leading_separator: False
+plain_host_names: yes
+hostvar_expressions:
+  ansible_host: (private_ipv4_addresses) | first
