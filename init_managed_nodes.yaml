@@ -1,0 +1,44 @@
+- hosts: reverse_proxy
+  become: true
+  tasks:
+    - name: "Install HAProxy"
+      package:
+        name: haproxy
+    - template:
+        dest: "/etc/haproxy/haproxy.cfg"
+        src: "/home/azureuser/dev/IaC_Ansible_Assignment/haproxy.cfg"
+    - service:
+        state: restarted
+        name: haproxy
+
+- hosts: web_server
+  become: true
+  tasks:
+    - name: install python
+      ansible.builtin.apt:
+        name: python3
+        state: latest
+    - name: install firewalld
+      ansible.builtin.apt:
+        name: firewalld
+        state: latest
+    - name: apache2 installed
+      ansible.builtin.apt:
+        name: apache2
+        state: latest
+    - name: custom index.html
+      ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        content: |
+          Web Server Reached          
+    - name: apache2 service enabled
+      ansible.builtin.service:
+        name: apache2
+        enabled: true
+        state: started
+    - name: open firewall
+      ansible.posix.firewalld:
+        service: http
+        state: enabled
+        immediate: true
+        permanent: true
