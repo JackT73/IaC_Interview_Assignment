@@ -1,0 +1,8 @@
+- import_playbook: create_reverse_proxy_vm.yml
+- import_playbook: create_webserver_vm.yml
+
+- hosts: localhost
+  tasks:
+    - meta: refresh_inventory
+
+- import_playbook: init_managed_nodes.yaml
