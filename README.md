@@ -15,6 +15,7 @@ Using IaC:
 - Wrote a playbook to create Managed Node VMs
 - Wrote a playbook to initialize http resource and reverse proxy on managed nodes
 - Locked network security group to my IP because I got two requests from IPs in the Baltics
+- Updated HAProxy config to populate backend from a dynamic azure inventory
 
 ##### Resources Used
 - [Configure Ansible on an Azure VM](https://learn.microsoft.com/en-us/azure/developer/ansible/install-on-linux-vm?tabs=azure-cli#install-ansible-on-an-azure-linux-virtual-machine)
