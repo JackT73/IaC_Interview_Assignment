@@ -1,8 +1,8 @@
-- name: IaC Create Reverse Proxy VM
+- name: Create Reverse Proxy
   hosts: localhost
   connection: local
   tasks:
-  - name: Create public IP address
+  - name: Create Reverse Proxy Public IP
     azure_rm_publicipaddress:
       resource_group: IaC_Interview_Assignment
       allocation_method: Static
@@ -13,14 +13,17 @@
     debug:
       msg: "The public IP is {{ output_ip_address.state.ip_address }}."
 
-  - name: Create Virtual NIC
+  - name: Create Reverse Proxy NIC
     azure_rm_networkinterface:
       resource_group: IaC_Interview_Assignment
       name: reverse-proxy-nic
       virtual_network: Ansible-Control-Node-vnet
       subnet: default
       create_with_security_group: False
-      public_ip_name: reverse-proxy-ip
+      ip_configurations:
+      - name: ipconfig1
+        primary: True
+        public_ip_address_name: reverse-proxy-ip
 
   - name: Create Reverse Proxy VM
     azure_rm_virtualmachine:

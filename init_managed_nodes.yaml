@@ -1,17 +1,21 @@
 - hosts: reverse_proxy
+  name: Initialize Reverse Proxy
   become: true
   tasks:
     - name: "Install HAProxy"
       package:
         name: haproxy
-    - template:
+    - name: Transfer HAProxy Config to Reverse Proxy
+      template:
         dest: "/etc/haproxy/haproxy.cfg"
         src: "/home/azureuser/dev/IaC_Ansible_Assignment/haproxy.cfg"
-    - service:
+    - name: Start HAProxy Service
+      service:
         state: restarted
         name: haproxy
 
 - hosts: web_server
+  name: Initialize Web Server
   become: true
   tasks:
     - name: Update and upgrade apt packages

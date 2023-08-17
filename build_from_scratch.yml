@@ -2,7 +2,8 @@
 - import_playbook: create_webserver_vm.yml
 
 - hosts: localhost
+  name: Refresh Inventory to Include New VMs
   tasks:
-    - meta: refresh_inventory
-
+    - name: Refresh Dynamic Inventory
+      meta: refresh_inventory
 - import_playbook: init_managed_nodes.yaml

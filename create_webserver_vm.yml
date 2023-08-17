@@ -1,8 +1,8 @@
-- name: IaC Create Web Server
+- name: Create Web Server
   hosts: localhost
   connection: local
   tasks:
-  - name: Create Virtual NIC
+  - name: Create Web Server NIC
     azure_rm_networkinterface:
       resource_group: IaC_Interview_Assignment
       name: web-server-nic
